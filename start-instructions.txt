@@ -1,0 +1,7 @@
+#activate venv environment
+source .venv/ccgen/bin/activate
+#start ccgen with sudo privileges, but use the python3 for the venv
+sudo .venv/ccgen/bin/python3 ccgen/app.py
+
+#enable flask python debug output
+export FLASK_DEBUG=1

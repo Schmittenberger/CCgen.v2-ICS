@@ -13,8 +13,8 @@
 </head>
 
 <body class="w-100" style="overflow: auto;">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark w-100 d-flex">
+        <div class="w-100 navbar-nav d-flex ">
             <ul class="navbar-nav d-flex align-items-center">
                 <li class="nav-item">
                     <a class="nav-link" href="/">Dashboard</a>
@@ -28,11 +28,18 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="interface">Interface</a>
                 </li>
+        
+            </ul> 
+            <ul class="navbar-nav d-flex w-100 justify-content-end">
+                <li lass="nav-item">
+                    <a class="nav-link" href="/">CCGen v2 Modified by Lukas Schmidt</a>
+                    
+                </li>
             </ul>
         </div>
     </nav>
     <div class="d-flex w-100 justify-content-center">
-        <div class="d-block w-50 p-5">
+        <div class="d-block w-50 p-5" style="background: white">
             <label class="mb-3 form-label">Upload config and send it to CCgen directly.</label>
             <div class="input-group">
                 <input type="file" class="form-control" id="configfile" accept="application/JSON">
@@ -61,4 +68,6 @@
             </div>
         </div>
     </div>
+      <!-- fill up remaining vertical space of website to blur background image -->
+      <div style="height: 100vh;"></div>
 </body>

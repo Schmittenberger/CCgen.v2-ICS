@@ -70,3 +70,8 @@ td {
 th {
     vertical-align: middle;
 }
+
+body{
+    background-image: url("/static/imgs/background.jpg");
+    backdrop-filter: blur(2px);
+}

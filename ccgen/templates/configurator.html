@@ -12,20 +12,27 @@
 </head>
 
 <body class="w-100" style="overflow: auto;">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark w-100 d-flex">
+        <div class="w-100 navbar-nav d-flex ">
             <ul class="navbar-nav d-flex align-items-center">
                 <li class="nav-item">
                     <a class="nav-link" href="/">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="configurator">Configurator</a>
+                    <a class="nav-link active" href="configurator">Configurator</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="settings">Settings</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="interface">Interface</a>
+                    <a class="nav-link" aria-current="page" href="interface">Interface</a>
+                </li>
+        
+            </ul> 
+            <ul class="navbar-nav d-flex w-100 justify-content-end">
+                <li lass="nav-item">
+                    <a class="nav-link" href="/">CCGen v2 Modified by Lukas Schmidt</a>
+                    
                 </li>
             </ul>
         </div>
@@ -123,7 +130,7 @@
         <form class="d-flex" id="configform">
             <div class="w-33 p-2" style="background-color: #b1dae6; border-right: 1px outset #333;">
                 <h5>Config & Files</h5>
-                <div class="form-group">
+                <div >
                     <label for="configinput">Input file</label>
                     <div class="d-block">
                         <input type="text" class="form-control" id="configinput" onchange="setInput(this)"
@@ -131,7 +138,7 @@
                         <small class="form-text text-muted">Input file with .pcap extension</small>
                     </div>
                 </div>
-                <div class="form-group">
+                <div>
                     <label for="configoutput">Output file</label>
                     <div class="d-block">
                         <input type="text" class="form-control" id="configoutput" onchange="setOutput(this)"
@@ -139,7 +146,7 @@
                         <small class="form-text text-muted">Output file path with .pcap extension</small>
                     </div>
                 </div>
-                <div class="form-group">
+                <div>
                     <label for="configmessage">Covert message</label>
                     <div class="d-block">
                         <input type="text" class="form-control" id="configmessage" onchange="setCovertMessage(this)"
@@ -148,7 +155,7 @@
                             file</small>
                     </div>
                 </div>
-                <div class="form-group">
+                <div>
                     <label for="settingmessage">Covert message [link]</label>
                     <div class="d-block">
                         <input type="text" class="form-control is-valid" id="configmessagelink"
@@ -156,7 +163,7 @@
                         <small class="form-text text-muted">Text of this message file will be injected</small>
                     </div>
                 </div>
-                <div class="form-group">
+                <div>
                     <label for="settingMessageSelector">Covert message type</label>
                     <div class="d-block">
                         <select class="form-control is-valid" id="configMessageSelector"
@@ -214,6 +221,7 @@
                             placeholder="Enter IP protocol number">
                         <small class="form-text text-muted">Input file is filtered after that ip protocol
                             number</small>
+                        <div> Tip: 6 = TCP | 17 = UDP </div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -306,15 +314,18 @@
         </form>
     </div>
     <div class="d-flex w-100 justify-content-end p-3 pt-0">
+    <div class="d-flex w-10 justify-content-center p-1" style="background:white">
         <p class="mt-3">Save as new config</p>
-        <div style="width: 0.5%;"></div>
+        <div style="width: 10%;"></div>
         <input type="checkbox" id="saveAsNewConfig" onclick="saveNewConfig(this)">
+    </div>
         <div class="w-2"></div>
         <button type="button" class="btn btn-primary btn-lg" onclick="validateConfig()"
             id="validateconfig">Validate</button>
+
     </div>
     <div class="modal" id="configsummary" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-dialog modal-lg" role="document" style="max-height: calc(100% - 3.5rem);">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Config summary</h5>
@@ -334,6 +345,8 @@
             </div>
         </div>
     </div>
+    <!-- fill up remaining vertical space of website to blur background image -->
+    <div style="height: 100vh;"></div>
 </body>
 
 </html>
