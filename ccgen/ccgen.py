@@ -19,32 +19,45 @@ def _process_online(config, callback):
     import fnfqueue
 
     iprule = util.iptables.get_iprule(config)
+    
 
     #REMOVE iptables rule just in case
     system('iptables -w -F ' + config.iptables_chain)
     print('iptables -w -F ' + config.iptables_chain)
     #APPLY iptables rule
     system(iprule)
-    print(iprule)
+    print("[_process_online]:iprule", iprule)
 
     socket.SO_RCVBUFFORCE = 2*1024*1024
 
+    #The nfqueue netlink interface is a Linux kernel feature to interact with the network stack.
+    #  It provides a way for applications to filter, queue, and modify network packets.
+    # processing netfilter queue (NFQUEUE) packets
     conn = fnfqueue.Connection()
+    print("[_process_online]: conection to fnfqueue created")
     
     try:
         q = conn.bind(config.iptables_queue)
         q.set_mode(0xffff, fnfqueue.COPY_PACKET)
+        print("[_process_online]: fnfqueue connection queue bound to config iptables and set to copy packets?")
     except PermissionError:
-        print("Access denied; Do I have root rights or the needed capabilities?")
+        print("[_process_online]: Access denied while online processing;  \nDo I have root rights or the needed capabilities?")
         return
 
     try:
+        print("[_process_online]: try block before going through each packet reached")
         for packet in conn:
+            # NO NEED TO FILTER PACKETS FOR SOURCE AND DESTINATION ETC, because the nfqueue does that already
+            #print("[_process_online]: packet in fnfqueue received", IP(packet.payload))
+            ###print("[_process_online]: packet in fnfqueue received", IP(packet.payload), IP(packet.payload.dst))
             scapypkt = IP(packet.payload)
+            #perform the injection/extraction on the packet
+            #abort if callback returns True (something went wrong on the way)
             if callback(scapypkt): break
             packet.payload = bytes(scapypkt)
             packet.mangle()
     finally:
+        print("[_process_online]: finally block reached after processing fnfqueue")
         system('iptables -w -F ' + config.iptables_chain)
         print('iptables -w -F ' + config.iptables_chain)
         conn.close()
@@ -54,10 +67,15 @@ def process_online_send(config):
     modified_frames = 0
     params = config.mapping.getparams()
 
+    print("[process_online_send]: online inject started")
+    print("[process_online_send]: params", params)
+
     def callback(pkt):
+        print("[process_online_send]: callback called", pkt)
         datagram = config.message.getdatagram()
         if not datagram: return True
         mappedvalue = config.mapping.getmapping(datagram)
+        print("[process_online_send]: mapped value:", mappedvalue)
         if mappedvalue:
             config.technique.modify(pkt, mappedvalue, params)
 

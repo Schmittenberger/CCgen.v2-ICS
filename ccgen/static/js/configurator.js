@@ -532,7 +532,8 @@ function validateConfig() {
     config.dst_port = $('#configdstport').val() ? parseInt($('#configdstport').val()) : null;
     config.proto = $('#configproto').val() ? parseInt($('#configproto').val()) : null;
     config.iptables_chain = $('#filteriptableschain').val();
-    config.iptables_queue = $('#filteriptablesqueue').val() ? parseInt($('#filteriptablesqueue').val()) : null;
+    config.iptables_queue = 0
+    // config.iptables_queue = $('#filteriptablesqueue').val() ? parseInt($('#filteriptablesqueue').val()) : null;
 
     //fill in mapping
     if (!config.hasOwnProperty('mapping')) config.mapping = {};
@@ -818,6 +819,7 @@ function fillConfig(data) {
     $('#configdstport').val(config.dst_port).trigger('change');
     $('#configproto').val(config.proto).trigger('change');
     $('#filteriptableschain').val(config.iptables_chain).trigger('change');
+    //$('#filteriptablesqueue').val(config.iptables_queue).trigger('change');
     $('#filteriptablesqueue').val(config.iptables_queue).trigger('change');
     fillMapping(config.mapping);
 }

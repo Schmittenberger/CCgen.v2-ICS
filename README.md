@@ -38,7 +38,10 @@ CCgen.v2 (Link: https://github.com/CN-TU/CCgen.v2) is a new version of CCgen.v1 
 ## Requirements
 To run this application following software and programs are needed:
 - **Linux debian-based** operating system (Ubuntu/Debian)
-- **Virtualbox** (Version 6.1)
+- **Virtualbox** (Version 6.1) for Spammer VM (Optional, but then install vagrant)
+- **Python** (Version 3.11.4 works)
+
+I would not recommend running this tool inside a virtual environment.
 
 ## Installation
 For installation, run the linux bash script *install.sh* with the command inside a terminal:
